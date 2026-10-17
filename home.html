@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Scientific Calculator </title>
+<style>
+    *
+    {
+        box-sizing:border;
+
+    }
+    #display{
+        width:300px;
+        height:50px;
+        font-size:27px;
+
+    }
+
+
+
+</style>
+</head>
+<body>
+
+<div class="calculator">
+    <input id="display" type="text" value="0" readonly>
+    <div class="buttons">
+
+<button class="scientific" onclick="chooseTrig('sin') ">sin</button>
+
+<button class="scientific " onclick="chooseTrig('cos')"> cos</button>
+<button class="scientific" onclick="chooseTrig('tan')">tan</button>
+<button class="scientific" onclick="chooseFunction('sqrt')">√</button>
+
+
+<button class="clear" onclick="clearDisplay()">C</button>
+<button onclick="deleteLast()">DEL</button>
+<button class="operator" onclick="addToDisplay('%')">%</button>
+<button class="operator" onclick="addToDisplay('/')">÷</button>
+
+<button onclick="addToDisplay('7')">7</button>
+<button onclick="addTodisplay('8')">8</button>
+<button onclick="addTodisplay(9)">9</button>
+<button class="operator" onclick="addToDisplay('*')">x</button>
+
+
+
+
+    </div>
+    
+</div>
+
+<script>
+
+
+
+</script>
+
+
+
+</body>
+
+
+
+
+
+</html>
