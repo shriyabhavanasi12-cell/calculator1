@@ -69,6 +69,150 @@
 </div>
 
 <script>
+const display=document.getElementById("display")
+
+let pendingFunction=null;
+
+function startNewEntry(){
+    if(display.value==="Error"){
+         display.value="0";
+         pending.value=null;
+
+
+        
+    }
+}
+
+function addToDisplay(value){
+    startNewEntry();
+
+    if(display.value=== "0" && /^[0-9.]&/.test(value)){
+        display.value=value;
+
+    }else{
+        display.value += value;
+
+    }
+}
+
+function chooseTrig(functionName){
+    pendingFunction =functionName;
+    display.value=functionName+ "(";
+
+}
+
+function chooseFunction(functionName){
+    pendingFunction= functionName;
+    display.value="sqrt(";
+
+}
+function clearDisplay(){
+    display.value="0";
+    pendingFunction=null;
+
+}
+
+function deleteLast(){
+    if(display.value==="Error"){
+        clearDisplay();
+        return;
+    }
+
+display.value=display.value.slice(0,-1);
+
+if(display.value===""){
+    display.value="0";
+
+}
+return String(Number(number.toFixed(10)));
+
+
+}
+
+function calculate(){
+
+
+try{
+    let expression=display.value;
+
+    expression=expression.replace(
+        /\b(sin|cos|tan|sqrt)\((-?\d+(?:\.\d+)?)\)/g,
+
+        function (match,functionName,value){
+            
+            const number=number(value);
+            
+
+
+            if(functionName==="sqrt"){
+                if (number <0){
+                    throw new Error("Invalid square root");
+
+                }
+                return String(Math.sqrt(number));
+
+            }
+
+            const radians=number*Math.PI/180;
+
+            if (functionName==="sin"){
+                return String(Math.sin(radians));
+
+            }
+
+            if(functionName==="cos"){
+                return String(Math.cos(radians));
+
+            }
+            if (functionNmae==="tan"){
+                if(Math.abs(Math.cos(radians))<1e-10){
+                    throw new Error("undefined tangent");
+                }
+
+return String(Math.tan(radians));
+
+
+
+            }
+
+
+        }
+    );
+
+
+expressions=expression.replace(
+    /(\d+(?:\.\d+)?)%/g,
+    "($1/100)"
+);
+
+if (!/^[0-9+\-*/%.() ]+$/.test(expression)){
+
+throw new Error("invalid expression");
+
+}
+
+const result=Function(
+    '"use strict" ;   return ('+expression + ')'
+
+)();
+
+display.value=formatResult(result);
+pendingFunction=null;
+
+
+}catch(error){
+
+    display.value="Error";
+    pendingFunction=null;
+
+
+}
+
+
+
+
+}
+
 
 
 
