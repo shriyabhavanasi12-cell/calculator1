@@ -1,4 +1,4 @@
-A web-based scientific calculator built using HTML, CSS, and JavaScript. The project consists of basic arithmetic operations, scientific functions, and percentage calculations and trigonometric rules like sine, cos and tan
+A web-based scientific calculator built using HTML, CSS, and JavaScript. The project consists of basic arithmetic operations, scientific functions, and percentage calculations and trigonometric rules like sine, cos and tan. set in degree mode default 
 
 
 Features
