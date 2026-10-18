@@ -179,7 +179,7 @@ function chooseTrig(functionName){
     pendingFunction =functionName;
     display.value=functionName+ "(";
 
-}
+ }
 
 function chooseFunction(functionName){
     pendingFunction= functionName;
@@ -209,89 +209,87 @@ return String(Number(number.toFixed(10)));
 
 }
 
-function calculate(){
+
+   
+function calculate() {
+    try {
+let expression = display.value;
+      expression = expression.replace(
+                /\b(sin|cos|tan|sqrt)\((-?\d+(?:\.\d+)?)\)/g,
+     function(match, functionName, value) {
+    const number = Number(value);
+
+   if (functionName === "sqrt") {
 
 
-try{
-    let expression=display.value;
+     if (number < 0) {
+  throw new Error("Invalid square root");
+    }
 
-    expression=expression.replace(
-        /\b(sin|cos|tan|sqrt)\((-?\d+(?:\.\d+)?)\)/g,
+    return String(Math.sqrt(number));
+     }
 
-        function (match,functionName,value){
-            
-            const number=number(value);
-            
+                
+     const radians = number * Math.PI / 180;
 
-
-            if(functionName==="sqrt"){
-                if (number <0){
-                    throw new Error("Invalid square root");
-
-                }
-                return String(Math.sqrt(number));
-
-            }
-
-            const radians=number*Math.PI/180;
-
-            if (functionName==="sin"){
-                return String(Math.sin(radians));
-
-            }
-
-            if(functionName==="cos"){
-                return String(Math.cos(radians));
-
-            }
-            if (functionNmae==="tan"){
-                if(Math.abs(Math.cos(radians))<1e-10){
-                    throw new Error("undefined tangent");
-                }
-
-return String(Math.tan(radians));
-
-
-
-            }
-
-
+               
+     if (functionName === "sin") {
+               
+        return String(Math.sin(radians));
         }
-    );
+
+             if (functionName === "cos") {
+               return String(Math.cos(radians));
+            }
+
+        if (functionName === "tan") {
+            if (Math.abs(Math.cos(radians)) < 1e-10) {
+              throw new Error("Undefined tangent");
+             }
+
+                 return String(Math.tan(radians));
+                }
+            }
+        );
 
 
-expressions=expression.replace(
-    /(\d+(?:\.\d+)?)%/g,
-    "($1/100)"
-);
 
-if (!/^[0-9+\-*/%.() ]+$/.test(expression)){
 
-throw new Error("invalid expression");
+    
+        expression = expression.replace(
+            /(\d+(?:\.\d+)?)%/g,
+            "($1/100)"
+        );
 
+        
+     if (!/^[0-9+\-*/%.() ]+$/.test(expression)) {
+            throw new Error("Invalid expression");
+        }
+
+      
+  const result = Function(
+         '"use strict"; return (' + expression + ')'
+        )();
+
+ if (!Number.isFinite(result)) {
+           
+    
+    throw new Error("Invalid result");
+        }
+
+ display.value = String(Number(result.toFixed(10)));
+  pendingFunction = null;
+
+    } catch (error) {
+        console.error("Calculator error:", error);
+        display.value = "Error";
+
+        pendingFunction = null;
+    }
 }
 
-const result=Function(
-    '"use strict" ;   return ('+expression + ')'
+            
 
-)();
-
-display.value=formatResult(result);
-pendingFunction=null;
-
-
-}catch(error){
-
-    display.value="Error";
-    pendingFunction=null;
-
-
-}
-
-
-
-
-}
 
 
 
