@@ -163,17 +163,29 @@ function startNewEntry(){
     }
 }
 
-function addToDisplay(value){
+
+function addToDisplay(value) {
     startNewEntry();
 
-    if(display.value=== "0" && /^[0-9.]&/.test(value)){
-        display.value=value;
-
-    }else{
+    
+ if (display.value === "0" && /^[0-9]$/.test(value)) {
+        display.value = value;
+    }
+    
+ else if (display.value === "0" && value === ".") {
+        display.value = "0.";
+    }
+       else {
         display.value += value;
-
     }
 }
+
+
+
+
+
+
+
 
 function chooseTrig(functionName){
     pendingFunction =functionName;
